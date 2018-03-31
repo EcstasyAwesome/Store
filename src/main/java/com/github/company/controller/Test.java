@@ -22,8 +22,8 @@ public class Test {
     public String test(Model model) {
         User user = new User();
         user.setId(2);
-        user.setFirstName("Влад");
-        user.setLastName("Удовиченко");
+        user.setFirstName("Имя");
+        user.setLastName("Фамилия");
         user.setAdmin(true);
         user.setInterests(new String[]{"a", "b", "c"});
         model.addAttribute("user", user);

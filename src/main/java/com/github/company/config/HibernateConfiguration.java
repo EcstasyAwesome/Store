@@ -14,6 +14,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 import java.util.TimeZone;
 
+import static org.hibernate.cfg.AvailableSettings.DIALECT;
+import static org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO;
+import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
+
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfiguration {
@@ -26,7 +30,7 @@ public class HibernateConfiguration {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.getObject().withOptions().jdbcTimeZone(TimeZone.getTimeZone("UTC"));
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setHibernateProperties(hibernateProperties());
+        sessionFactory.setHibernateProperties(properties());
         sessionFactory.setAnnotatedPackages("com.github.company.dao.entity");
         return sessionFactory;
     }
@@ -35,9 +39,9 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl(env.getProperty("ds.url"));
-        dataSource.setUsername(env.getProperty("ds.username"));
-        dataSource.setPassword(env.getProperty("ds.password"));
+        dataSource.setUrl(env.getProperty("datasource.url"));
+        dataSource.setUsername(env.getProperty("datasource.username"));
+        dataSource.setPassword(env.getProperty("datasource.password"));
         return dataSource;
     }
 
@@ -48,14 +52,11 @@ public class HibernateConfiguration {
         return transactionManager;
     }
 
-    private Properties hibernateProperties() {
-        String hbm2ddl = "hibernate.hbm2ddl.auto";
-        String dialect = "hibernate.dialect";
-        String showSql = "hibernate.show_sql";
+    private Properties properties() {
         Properties prop = new Properties();
-        prop.setProperty(hbm2ddl, env.getProperty(hbm2ddl));
-        prop.setProperty(dialect, env.getProperty(dialect));
-        prop.setProperty(showSql, env.getProperty(showSql));
+        prop.setProperty(HBM2DDL_AUTO, env.getProperty("hibernate.show_sql"));
+        prop.setProperty(DIALECT, env.getProperty("hibernate.dialect"));
+        prop.setProperty(SHOW_SQL, env.getProperty("hibernate.hbm2ddl.auto"));
         return prop;
     }
 }

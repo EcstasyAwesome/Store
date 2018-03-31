@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc
 @Configuration
 @ComponentScan("com.github.company")
-@PropertySource("classpath:configuration.properties")
+@PropertySource("classpath:config.properties")
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Override

@@ -3,7 +3,6 @@ package com.github.company.controller;
 import com.github.company.dao.entity.Address;
 import com.github.company.dao.entity.Group;
 import com.github.company.dao.entity.User;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -65,6 +64,8 @@ public class Test {
         if (result.hasErrors()) {
             System.out.println(result.toString());
             return "test";
+        }else {
+            sessionFactory.getCurrentSession().save(user);
         }
         return "index";
     }

@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.*;
@@ -25,6 +26,7 @@ import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 @Configuration
 @ComponentScan("com.github.company")
 @PropertySource("classpath:config.properties")
+@EnableTransactionManagement
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Autowired

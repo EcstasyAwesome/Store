@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <body>
-<%--@elvariable id="wish" type="com.github.company.dao.User"--%>
-<form:form modelAttribute="wish">
+<%--@elvariable id="user" type="com.github.company.dao.User"--%>
+<form:form modelAttribute="user">
     <table>
         <tr>
             <td>First Name:</td>
@@ -16,12 +17,9 @@
             <td><form:errors path="lastName"/></td>
         </tr>
         <tr>
-            <td>Admin:</td>
-            <td><form:checkbox path="admin"/></td>
-        </tr>
-        <tr>
-            <td>Interests:</td>
-            <td><form:select path="interests" items="${wish.interests}"/></td>
+            <td>Date:</td>
+            <td><form:input type="date" path="birthday"/></td>
+            <td><form:errors path="birthday"/></td>
         </tr>
         <tr>
             <td colspan="3">

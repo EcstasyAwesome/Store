@@ -1,6 +1,8 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,9 +11,12 @@ import java.util.Set;
 public class News {
 
     private long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String text;
     private String image;
+    @NotNull
     private Date date = new Date();
     private Set<NewsComment> comments;
 

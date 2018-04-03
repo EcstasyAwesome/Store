@@ -1,6 +1,7 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -8,7 +9,9 @@ import java.util.List;
 public class ProductLine {
 
     private long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String image;
     private List<Product> products;
 

@@ -1,6 +1,8 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -8,9 +10,13 @@ import java.util.Date;
 public class NewsComment {
 
     private long id;
+    @NotNull
     private News news;
+    @NotNull
     private User user;
+    @NotBlank
     private String text;
+    @NotNull
     private Date date = new Date();
 
     @Id

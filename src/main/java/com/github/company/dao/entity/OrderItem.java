@@ -1,15 +1,21 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "orderItems")
 public class OrderItem {
 
     private long id;
+    @NotNull
     private Order order;
+    @NotNull
     private Product product;
+    @Positive
     private int amount;
+    @Positive
     private double price;
 
     @Id

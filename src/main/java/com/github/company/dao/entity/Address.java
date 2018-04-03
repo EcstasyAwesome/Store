@@ -1,15 +1,21 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "addresses")
 public class Address {
 
     private long id;
+    @NotBlank
     private String country;
+    @NotBlank
     private String city;
+    @NotBlank
     private String street;
+    @Positive
     private int house;
     private int apartment;
 

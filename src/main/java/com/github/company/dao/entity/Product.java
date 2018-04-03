@@ -1,6 +1,9 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Set;
 
 @Entity
@@ -8,12 +11,19 @@ import java.util.Set;
 public class Product {
 
     private long id;
+    @NotNull
     private ProductLine productLine;
+    @NotBlank
     private String name;
+    @NotBlank
     private String description;
+    @NotBlank
     private String image;
+    @Positive
     private double price;
+    @Positive
     private int vote;
+    @Positive
     private float rating;
     private boolean available;
     private Set<ProductComment> comments;

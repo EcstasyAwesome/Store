@@ -1,13 +1,16 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "wishes")
 public class Wish {
 
     private long id;
+    @NotNull
     private User user;
+    @NotNull
     private Product product;
 
     @Id

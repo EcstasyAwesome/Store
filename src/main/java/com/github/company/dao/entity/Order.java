@@ -1,6 +1,9 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,9 +12,13 @@ import java.util.Set;
 public class Order {
 
     private long id;
+    @NotNull
     private User user;
+    @NotEmpty
     private Set<OrderItem> orderItems;
+    @NotNull
     private Date date = new Date();
+    @Positive
     private double sum;
 
     @Id

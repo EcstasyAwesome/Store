@@ -1,7 +1,11 @@
 package com.github.company.dao.entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
-import java.util.Calendar;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -9,15 +13,28 @@ import java.util.Set;
 public class User {
 
     private long id;
+    @NotBlank
     private String lastName;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String middleName;
-    private Calendar birthday;
+    @Past
+    @NotNull
+    private Date birthday;
+    @NotNull
+    @Valid
     private Address address;
+    @Range(min = 12)
     private long phone;
+    @NotBlank
     private String image;
+    @Email
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
+    @NotNull
     private Group groups;
     private Set<Wish> wishes;
     private Set<Order> orders;
@@ -62,11 +79,11 @@ public class User {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

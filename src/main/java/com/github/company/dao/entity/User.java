@@ -87,7 +87,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     public Address getAddress() {
         return address;
     }

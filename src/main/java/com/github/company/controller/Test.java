@@ -3,9 +3,12 @@ package com.github.company.controller;
 import com.github.company.dao.entity.Address;
 import com.github.company.dao.entity.Group;
 import com.github.company.dao.entity.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,9 @@ import java.util.Date;
 @Controller
 @RequestMapping("/hello")
 public class Test {
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -33,7 +39,6 @@ public class Test {
         user.setMiddleName("middle");
         user.setBirthday(new Date());
         Address address = new Address();
-        address.setId(1L);
         address.setCity("city");
         address.setCountry("country");
         address.setStreet("street");
@@ -41,11 +46,10 @@ public class Test {
         user.setAddress(address);
         user.setPhone(380957476699L);
         user.setImage("image");
-        user.setEmail("test@gmail.com");
+        user.setEmail("test1@gmail.com");
         user.setPassword("root123");
         Group group = new Group();
         group.setId(1L);
-        group.setName("admin");
         user.setGroups(group);
         return user;
     }
@@ -55,6 +59,7 @@ public class Test {
         return "test";
     }
 
+    @Transactional
     @PostMapping
     public String saveUser(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {

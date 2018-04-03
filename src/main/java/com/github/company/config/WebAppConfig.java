@@ -1,5 +1,6 @@
 package com.github.company.config;
 
+import com.github.company.dao.entity.*;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,8 @@ public class WebAppConfig implements WebMvcConfigurer {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setHibernateProperties(hibernateProps());
-        sessionFactory.setAnnotatedPackages("com.github.company.dao.entity");
+        sessionFactory.setAnnotatedClasses(Address.class, Group.class, News.class, NewsComment.class, Order.class,
+                OrderItem.class, Product.class, ProductComment.class, ProductLine.class, User.class, Wish.class);
         return sessionFactory;
     }
 

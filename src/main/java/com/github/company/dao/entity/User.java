@@ -191,6 +191,7 @@ public class User {
         if (groups != null ? !groups.equals(that.groups) : that.groups != null) return false;
         if (wishes != null ? !wishes.equals(that.wishes) : that.wishes != null) return false;
         if (orders != null ? !orders.equals(that.orders) : that.orders != null) return false;
+        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
         return true;
     }
 
@@ -210,6 +211,7 @@ public class User {
         result = 31 * result + (groups != null ? groups.hashCode() : 0);
         result = 31 * result + (wishes != null ? wishes.hashCode() : 0);
         result = 31 * result + (orders != null ? orders.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
         return result;
     }
 }

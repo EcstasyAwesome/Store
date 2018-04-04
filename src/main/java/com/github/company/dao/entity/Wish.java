@@ -24,7 +24,7 @@ public class Wish {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn
     public User getUser() {
         return user;

@@ -4,21 +4,19 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@Table(name = "news")
-public class News {
+@Table(name = "comments")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Comment {
 
     private long id;
     @NotBlank
-    private String name;
-    @NotBlank
     private String text;
-    private String image;
     @NotNull
     private Date date = new Date();
-    private Set<NewsComment> comments;
+    @NotNull
+    private User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,31 +29,13 @@ public class News {
         this.id = id;
     }
 
-    @Column(nullable = false, length = 50)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Column(nullable = false, length = 500, columnDefinition = "TEXT")
+    @Column(nullable = false, length = 300, columnDefinition = "TEXT")
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    @Column
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,29 +48,28 @@ public class News {
         this.date = date;
     }
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "news")
-    public Set<NewsComment> getComments() {
-        return comments;
+    @ManyToOne(optional = false)
+    @JoinColumn
+    public User getUser() {
+        return user;
     }
 
-    public void setComments(Set<NewsComment> comments) {
-        this.comments = comments;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public News() {
+    public Comment() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        News that = (News) o;
+        Comment that = (Comment) o;
         if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
         return true;
     }
 
@@ -98,11 +77,9 @@ public class News {
     public int hashCode() {
         int result = 1;
         result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }

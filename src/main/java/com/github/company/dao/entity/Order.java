@@ -32,7 +32,7 @@ public class Order {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn
     public User getUser() {
         return user;
@@ -42,7 +42,7 @@ public class Order {
         this.user = user;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "order")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "order")
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }

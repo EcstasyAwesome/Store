@@ -33,7 +33,7 @@ public class Group {
         this.name = name;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "groups")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "groups")
     public List<User> getUsers() {
         return users;
     }

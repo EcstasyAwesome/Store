@@ -44,7 +44,7 @@ public class ProductLine {
         this.image = image;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "productLine")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "productLine")
     public List<Product> getProducts() {
         return products;
     }

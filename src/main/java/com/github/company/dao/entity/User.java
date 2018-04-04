@@ -38,6 +38,7 @@ public class User {
     private Group groups;
     private Set<Wish> wishes;
     private Set<Order> orders;
+    private Set<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,7 +133,7 @@ public class User {
         this.password = password;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn
     public Group getGroups() {
         return groups;
@@ -142,7 +143,7 @@ public class User {
         this.groups = groups;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
     public Set<Wish> getWishes() {
         return wishes;
     }
@@ -151,13 +152,22 @@ public class User {
         this.wishes = wishes;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
     public Set<Order> getOrders() {
         return orders;
     }
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public User() {

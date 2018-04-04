@@ -39,7 +39,7 @@ public class Product {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn
     public ProductLine getProductLine() {
         return productLine;
@@ -112,7 +112,7 @@ public class Product {
         this.available = available;
     }
 
-    @OneToMany(orphanRemoval = true, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "product")
     public Set<ProductComment> getComments() {
         return comments;
     }

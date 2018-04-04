@@ -29,7 +29,7 @@ public class OrderItem {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn
     public Order getOrder() {
         return order;

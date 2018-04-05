@@ -14,13 +14,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class NewsDaoImpl implements NewsDao {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
     @Override
@@ -56,13 +57,14 @@ public class NewsDaoImpl implements NewsDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<News> getPage(int page, int recordsOnPage, @Nullable String column, @Nullable String value) {
+    public List<News> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<News> query = builder.createQuery(News.class);
         Root<News> root = query.from(News.class);
         query.select(root);
-        if (column != null && value != null) query.where(builder.equal(root.get(column), value));
+        if (params != null && !params.isEmpty())
+            params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));
         Query<News> newsQuery = session.createQuery(query);
         newsQuery.setFirstResult(page * recordsOnPage - recordsOnPage);
         newsQuery.setMaxResults(recordsOnPage);
@@ -71,13 +73,14 @@ public class NewsDaoImpl implements NewsDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable String column, @Nullable String value) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
         Root<News> root = query.from(News.class);
         query.select(builder.count(root));
-        if (column != null && value != null) query.where(builder.equal(root.get(column), value));
+        if (params != null && !params.isEmpty())
+            params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));
         long records = session.createQuery(query).getSingleResult();
         return (int) Math.ceil(records * 1.0 / recordsOnPage);
     }

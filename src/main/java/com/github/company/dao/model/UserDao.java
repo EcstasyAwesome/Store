@@ -8,4 +8,6 @@ public interface UserDao extends CRUD<Long, User>, Pagination<User> {
     List<User> getAll();
 
     User getByLogin(String login);
+
+    boolean checkLoginAvailable(String login);
 }

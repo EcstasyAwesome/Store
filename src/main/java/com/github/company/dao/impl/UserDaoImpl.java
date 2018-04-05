@@ -1,7 +1,7 @@
 package com.github.company.dao.impl;
 
-import com.github.company.dao.entity.Order;
-import com.github.company.dao.model.OrderDao;
+import com.github.company.dao.entity.User;
+import com.github.company.dao.model.UserDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -18,68 +18,79 @@ import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OrderDaoImpl implements OrderDao {
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
     @Override
-    public List<Order> getAll() {
+    public List<User> getAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        query.select(query.from(Order.class));
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        query.select(query.from(User.class));
         return session.createQuery(query).getResultList();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Order> getUserOrders(long id) {
+    public User getByLogin(String email) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        Root<Order> root = query.from(Order.class);
-        query.select(root).where(builder.equal(root.get("user"), id));
-        return session.createQuery(query).getResultList();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("email"), email));
+        return session.createQuery(query).getSingleResult();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean checkLoginAvailable(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("email"), email));
+        return session.createQuery(query).getResultList().isEmpty();
     }
 
     @Override
-    public void create(Order newInstance) {
+    public void create(User newInstance) {
         sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Order read(Long id) {
-        return sessionFactory.getCurrentSession().get(Order.class, id);
+    public User read(Long id) {
+        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
-    public void update(Order instance) {
+    public void update(User instance) {
         sessionFactory.getCurrentSession().update(instance);
     }
 
     @Override
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(session.load(Order.class, id));
+        session.delete(session.load(User.class, id));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Order> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<User> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        Root<Order> root = query.from(Order.class);
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
         query.select(root);
         if (params != null && !params.isEmpty())
             params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));
-        Query<Order> orderQuery = session.createQuery(query);
-        orderQuery.setFirstResult(page * recordsOnPage - recordsOnPage);
-        orderQuery.setMaxResults(recordsOnPage);
-        return orderQuery.getResultList();
+        Query<User> userQuery = session.createQuery(query);
+        userQuery.setFirstResult(page * recordsOnPage - recordsOnPage);
+        userQuery.setMaxResults(recordsOnPage);
+        return userQuery.getResultList();
     }
 
     @Transactional(readOnly = true)
@@ -88,7 +99,7 @@ public class OrderDaoImpl implements OrderDao {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
-        Root<Order> root = query.from(Order.class);
+        Root<User> root = query.from(User.class);
         query.select(builder.count(root));
         if (params != null && !params.isEmpty())
             params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));

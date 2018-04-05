@@ -1,7 +1,7 @@
 package com.github.company.dao.impl;
 
-import com.github.company.dao.entity.Order;
-import com.github.company.dao.model.OrderDao;
+import com.github.company.dao.entity.ProductComment;
+import com.github.company.dao.model.ProductCommentDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -18,68 +18,47 @@ import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OrderDaoImpl implements OrderDao {
+public class ProductCommentDaoImpl implements ProductCommentDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional(readOnly = true)
     @Override
-    public List<Order> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        query.select(query.from(Order.class));
-        return session.createQuery(query).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<Order> getUserOrders(long id) {
-        Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        Root<Order> root = query.from(Order.class);
-        query.select(root).where(builder.equal(root.get("user"), id));
-        return session.createQuery(query).getResultList();
-    }
-
-    @Override
-    public void create(Order newInstance) {
+    public void create(ProductComment newInstance) {
         sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Order read(Long id) {
-        return sessionFactory.getCurrentSession().get(Order.class, id);
+    public ProductComment read(Long id) {
+        return sessionFactory.getCurrentSession().get(ProductComment.class, id);
     }
 
     @Override
-    public void update(Order instance) {
+    public void update(ProductComment instance) {
         sessionFactory.getCurrentSession().update(instance);
     }
 
     @Override
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(session.load(Order.class, id));
+        session.delete(session.load(ProductComment.class, id));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Order> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<ProductComment> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Order> query = builder.createQuery(Order.class);
-        Root<Order> root = query.from(Order.class);
+        CriteriaQuery<ProductComment> query = builder.createQuery(ProductComment.class);
+        Root<ProductComment> root = query.from(ProductComment.class);
         query.select(root);
         if (params != null && !params.isEmpty())
             params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));
-        Query<Order> orderQuery = session.createQuery(query);
-        orderQuery.setFirstResult(page * recordsOnPage - recordsOnPage);
-        orderQuery.setMaxResults(recordsOnPage);
-        return orderQuery.getResultList();
+        Query<ProductComment> productCommentQuery = session.createQuery(query);
+        productCommentQuery.setFirstResult(page * recordsOnPage - recordsOnPage);
+        productCommentQuery.setMaxResults(recordsOnPage);
+        return productCommentQuery.getResultList();
     }
 
     @Transactional(readOnly = true)
@@ -88,7 +67,7 @@ public class OrderDaoImpl implements OrderDao {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
-        Root<Order> root = query.from(Order.class);
+        Root<ProductComment> root = query.from(ProductComment.class);
         query.select(builder.count(root));
         if (params != null && !params.isEmpty())
             params.forEach((field, value) -> query.where(builder.equal(root.get(field), value)));

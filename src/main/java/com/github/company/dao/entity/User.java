@@ -6,7 +6,8 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -36,9 +37,9 @@ public class User {
     private String password;
     @NotNull
     private Group groups;
-    private Set<Wish> wishes;
-    private Set<Order> orders;
-    private Set<Comment> comments;
+    private List<Wish> wishes;
+    private List<Order> orders;
+    private List<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -144,74 +145,82 @@ public class User {
     }
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
-    public Set<Wish> getWishes() {
+    public List<Wish> getWishes() {
         return wishes;
     }
 
-    public void setWishes(Set<Wish> wishes) {
+    public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
     }
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
     public User() {
     }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User that = (User) o;
-        if (id != that.id) return false;
-        if (phone != that.phone) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (groups != null ? !groups.equals(that.groups) : that.groups != null) return false;
-        if (wishes != null ? !wishes.equals(that.wishes) : that.wishes != null) return false;
-        if (orders != null ? !orders.equals(that.orders) : that.orders != null) return false;
-        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
-        return true;
+        User user = (User) o;
+        return id == user.id &&
+                phone == user.phone &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(middleName, user.middleName) &&
+                Objects.equals(birthday, user.birthday) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(image, user.image) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(groups, user.groups) &&
+                Objects.equals(wishes, user.wishes) &&
+                Objects.equals(orders, user.orders) &&
+                Objects.equals(comments, user.comments);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + Long.hashCode(phone);
-        result = 31 * result + (image != null ? image.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (groups != null ? groups.hashCode() : 0);
-        result = 31 * result + (wishes != null ? wishes.hashCode() : 0);
-        result = 31 * result + (orders != null ? orders.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        return result;
+        return Objects.hash(id, lastName, firstName, middleName, birthday, address, phone, image, email, password, groups, wishes, orders, comments);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthday=" + birthday +
+                ", address=" + address +
+                ", phone=" + phone +
+                ", image='" + image + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", groups=" + groups +
+                ", wishes=" + wishes +
+                ", orders=" + orders +
+                ", comments=" + comments +
+                '}';
     }
 }

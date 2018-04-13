@@ -5,7 +5,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -15,7 +16,7 @@ public class Order {
     @NotNull
     private User user;
     @NotEmpty
-    private Set<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
     @NotNull
     private Date date = new Date();
     @Positive
@@ -43,11 +44,11 @@ public class Order {
     }
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "order")
-    public Set<OrderItem> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -73,27 +74,35 @@ public class Order {
     public Order() {
     }
 
+    public Order(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order that = (Order) o;
-        if (id != that.id) return false;
-        if (Double.compare(that.sum, sum) != 0) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        if (orderItems != null ? !orderItems.equals(that.orderItems) : that.orderItems != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        return true;
+        Order order = (Order) o;
+        return id == order.id &&
+                Double.compare(order.sum, sum) == 0 &&
+                Objects.equals(user, order.user) &&
+                Objects.equals(orderItems, order.orderItems) &&
+                Objects.equals(date, order.date);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + Double.hashCode(sum);
-        return result;
+        return Objects.hash(id, user, orderItems, date, sum);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", orderItems=" + orderItems +
+                ", date=" + date +
+                ", sum=" + sum +
+                '}';
     }
 }

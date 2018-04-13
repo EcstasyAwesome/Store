@@ -4,7 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
@@ -26,7 +27,7 @@ public class Product {
     @Positive
     private float rating;
     private boolean available;
-    private Set<ProductComment> comments;
+    private List<ProductComment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,48 +114,56 @@ public class Product {
     }
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "product")
-    public Set<ProductComment> getComments() {
+    public List<ProductComment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<ProductComment> comments) {
+    public void setComments(List<ProductComment> comments) {
         this.comments = comments;
     }
 
     public Product() {
     }
 
+    public Product(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product that = (Product) o;
-        if (id != that.id) return false;
-        if (Double.compare(that.price, price) != 0) return false;
-        if (available != that.available) return false;
-        if (productLine != null ? !productLine.equals(that.productLine) : that.productLine != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (vote != that.vote) return false;
-        if (Float.compare(that.rating, rating) != 0) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
-        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
-        return true;
+        Product product = (Product) o;
+        return id == product.id &&
+                Double.compare(product.price, price) == 0 &&
+                vote == product.vote &&
+                Float.compare(product.rating, rating) == 0 &&
+                available == product.available &&
+                Objects.equals(productLine, product.productLine) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(image, product.image) &&
+                Objects.equals(comments, product.comments);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (productLine != null ? productLine.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (image != null ? image.hashCode() : 0);
-        result = 31 * result + Double.hashCode(price);
-        result = 31 * result + Float.hashCode(rating);
-        result = 31 * result + Integer.hashCode(vote);
-        result = 31 * result + Boolean.hashCode(available);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        return result;
+        return Objects.hash(id, productLine, name, description, image, price, vote, rating, available, comments);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productLine=" + productLine +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", vote=" + vote +
+                ", rating=" + rating +
+                ", available=" + available +
+                ", comments=" + comments +
+                '}';
     }
 }

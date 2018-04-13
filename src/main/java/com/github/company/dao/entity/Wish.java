@@ -2,6 +2,7 @@ package com.github.company.dao.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "wishes")
@@ -47,23 +48,31 @@ public class Wish {
     public Wish() {
     }
 
+    public Wish(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Wish that = (Wish) o;
-        if (id != that.id) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        if (product != null ? !product.equals(that.product) : that.product != null) return false;
-        return true;
+        Wish wish = (Wish) o;
+        return id == wish.id &&
+                Objects.equals(user, wish.user) &&
+                Objects.equals(product, wish.product);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        return result;
+        return Objects.hash(id, user, product);
+    }
+
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "id=" + id +
+                ", user=" + user +
+                ", product=" + product +
+                '}';
     }
 }

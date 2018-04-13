@@ -3,6 +3,7 @@ package com.github.company.dao.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.util.Objects;
 
 @Entity
 @Table(name = "addresses")
@@ -82,25 +83,29 @@ public class Address {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Address that = (Address) o;
-        if (id != that.id) return false;
-        if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (street != null ? !street.equals(that.street) : that.street != null) return false;
-        if (house != that.house) return false;
-        if (apartment != that.apartment) return false;
-        return true;
+        Address address = (Address) o;
+        return id == address.id &&
+                house == address.house &&
+                apartment == address.apartment &&
+                Objects.equals(country, address.country) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(street, address.street);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (street != null ? street.hashCode() : 0);
-        result = 31 * result + Integer.hashCode(house);
-        result = 31 * result + Integer.hashCode(apartment);
-        return result;
+        return Objects.hash(id, country, city, street, house, apartment);
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", apartment=" + apartment +
+                '}';
     }
 }

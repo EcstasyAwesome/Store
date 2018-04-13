@@ -4,7 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "news")
@@ -18,7 +19,7 @@ public class News {
     private String image;
     @NotNull
     private Date date = new Date();
-    private Set<NewsComment> comments;
+    private List<NewsComment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,40 +70,48 @@ public class News {
     }
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "news")
-    public Set<NewsComment> getComments() {
+    public List<NewsComment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<NewsComment> comments) {
+    public void setComments(List<NewsComment> comments) {
         this.comments = comments;
     }
 
     public News() {
     }
 
+    public News(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        News that = (News) o;
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
-        return true;
+        News news = (News) o;
+        return id == news.id &&
+                Objects.equals(name, news.name) &&
+                Objects.equals(text, news.text) &&
+                Objects.equals(image, news.image) &&
+                Objects.equals(date, news.date) &&
+                Objects.equals(comments, news.comments);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (image != null ? image.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, text, image, date, comments);
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", image='" + image + '\'' +
+                ", date=" + date +
+                ", comments=" + comments +
+                '}';
     }
 }

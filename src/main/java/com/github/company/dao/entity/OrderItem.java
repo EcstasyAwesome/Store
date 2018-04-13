@@ -3,6 +3,7 @@ package com.github.company.dao.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orderItems")
@@ -70,27 +71,35 @@ public class OrderItem {
     public OrderItem() {
     }
 
+    public OrderItem(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderItem that = (OrderItem) o;
-        if (id != that.id) return false;
-        if (order != null ? !order.equals(that.order) : that.order != null) return false;
-        if (product != null ? !product.equals(that.product) : that.product != null) return false;
-        if (amount != that.amount) return false;
-        if (Double.compare(that.price, price) != 0) return false;
-        return true;
+        OrderItem orderItem = (OrderItem) o;
+        return id == orderItem.id &&
+                amount == orderItem.amount &&
+                Double.compare(orderItem.price, price) == 0 &&
+                Objects.equals(order, orderItem.order) &&
+                Objects.equals(product, orderItem.product);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        result = 31 * result + Integer.hashCode(amount);
-        result = 31 * result + Double.hashCode(price);
-        return result;
+        return Objects.hash(id, order, product, amount, price);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", order=" + order +
+                ", product=" + product +
+                ", amount=" + amount +
+                ", price=" + price +
+                '}';
     }
 }

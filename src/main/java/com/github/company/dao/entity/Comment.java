@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "comments")
@@ -65,21 +66,25 @@ public abstract class Comment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment that = (Comment) o;
-        if (id != that.id) return false;
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        return true;
+        Comment comment = (Comment) o;
+        return id == comment.id &&
+                Objects.equals(text, comment.text) &&
+                Objects.equals(date, comment.date) &&
+                Objects.equals(user, comment.user);
     }
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 31 * result + Long.hashCode(id);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        return result;
+        return Objects.hash(id, text, date, user);
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                '}';
     }
 }

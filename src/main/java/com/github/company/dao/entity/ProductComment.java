@@ -2,6 +2,7 @@ package com.github.company.dao.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "productComments")
@@ -28,16 +29,19 @@ public class ProductComment extends Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        else {
-            ProductComment that = (ProductComment) o;
-            return product != null ? product.equals(that.product) : that.product == null;
-        }
+        ProductComment that = (ProductComment) o;
+        return Objects.equals(product, that.product);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), product);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductComment{" +
+                "product=" + product +
+                "} " + super.toString();
     }
 }

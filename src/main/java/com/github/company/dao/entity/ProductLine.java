@@ -68,13 +68,12 @@ public class ProductLine {
         ProductLine that = (ProductLine) o;
         return id == that.id &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(image, that.image) &&
-                Objects.equals(products, that.products);
+                Objects.equals(image, that.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, image, products);
+        return Objects.hash(id, name, image);
     }
 
     @Override
@@ -83,7 +82,6 @@ public class ProductLine {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
-                ", products=" + products +
                 '}';
     }
 }

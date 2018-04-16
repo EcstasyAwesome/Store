@@ -142,13 +142,12 @@ public class Product {
                 Objects.equals(productLine, product.productLine) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(image, product.image) &&
-                Objects.equals(comments, product.comments);
+                Objects.equals(image, product.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productLine, name, description, image, price, vote, rating, available, comments);
+        return Objects.hash(id, productLine, name, description, image, price, vote, rating, available);
     }
 
     @Override
@@ -163,7 +162,6 @@ public class Product {
                 ", vote=" + vote +
                 ", rating=" + rating +
                 ", available=" + available +
-                ", comments=" + comments +
                 '}';
     }
 }

@@ -86,13 +86,12 @@ public class Order {
         return id == order.id &&
                 Double.compare(order.sum, sum) == 0 &&
                 Objects.equals(user, order.user) &&
-                Objects.equals(orderItems, order.orderItems) &&
                 Objects.equals(date, order.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, orderItems, date, sum);
+        return Objects.hash(id, user, date, sum);
     }
 
     @Override
@@ -100,7 +99,6 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", user=" + user +
-                ", orderItems=" + orderItems +
                 ", date=" + date +
                 ", sum=" + sum +
                 '}';

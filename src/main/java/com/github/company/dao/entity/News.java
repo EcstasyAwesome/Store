@@ -94,13 +94,12 @@ public class News {
                 Objects.equals(name, news.name) &&
                 Objects.equals(text, news.text) &&
                 Objects.equals(image, news.image) &&
-                Objects.equals(date, news.date) &&
-                Objects.equals(comments, news.comments);
+                Objects.equals(date, news.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, text, image, date, comments);
+        return Objects.hash(id, name, text, image, date);
     }
 
     @Override
@@ -111,7 +110,6 @@ public class News {
                 ", text='" + text + '\'' +
                 ", image='" + image + '\'' +
                 ", date=" + date +
-                ", comments=" + comments +
                 '}';
     }
 }

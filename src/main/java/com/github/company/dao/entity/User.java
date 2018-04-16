@@ -193,15 +193,13 @@ public class User {
                 Objects.equals(image, user.image) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(groups, user.groups) &&
-                Objects.equals(wishes, user.wishes) &&
-                Objects.equals(orders, user.orders) &&
-                Objects.equals(comments, user.comments);
+                Objects.equals(groups, user.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, middleName, birthday, address, phone, image, email, password, groups, wishes, orders, comments);
+        return Objects.hash(id, lastName, firstName, middleName, birthday,
+                address, phone, image, email, password, groups);
     }
 
     @Override
@@ -218,9 +216,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", groups=" + groups +
-                ", wishes=" + wishes +
-                ", orders=" + orders +
-                ", comments=" + comments +
                 '}';
     }
 }

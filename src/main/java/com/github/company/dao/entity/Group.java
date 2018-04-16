@@ -55,14 +55,12 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return id == group.id &&
-                Objects.equals(name, group.name) &&
-                Objects.equals(users, group.users);
+        return id == group.id && Objects.equals(name, group.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -70,7 +68,6 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

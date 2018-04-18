@@ -6,9 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "comments")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public abstract class Comment {
 
     private long id;

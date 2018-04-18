@@ -6,14 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "productLines")
-public class ProductLine {
-
+@Table(name = "producers")
+public class Producer {
     private long id;
     @NotBlank
     private String name;
-    @NotBlank
-    private String image;
     private List<Product> products;
 
     @Id
@@ -36,16 +33,7 @@ public class ProductLine {
         this.name = name;
     }
 
-    @Column(nullable = false)
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "productLine")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "producer")
     public List<Product> getProducts() {
         return products;
     }
@@ -54,10 +42,10 @@ public class ProductLine {
         this.products = products;
     }
 
-    public ProductLine() {
+    public Producer() {
     }
 
-    public ProductLine(long id) {
+    public Producer(long id) {
         this.id = id;
     }
 
@@ -65,23 +53,21 @@ public class ProductLine {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductLine that = (ProductLine) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(image, that.image);
+        Producer producer = (Producer) o;
+        return id == producer.id &&
+                Objects.equals(name, producer.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, image);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
-        return "ProductLine{" +
+        return "Producer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
                 '}';
     }
 }

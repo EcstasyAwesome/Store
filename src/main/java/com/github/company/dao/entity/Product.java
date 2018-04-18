@@ -13,7 +13,9 @@ public class Product {
 
     private long id;
     @NotNull
-    private ProductLine productLine;
+    private Category category;
+    @NotNull
+    private Producer producer;
     @NotBlank
     private String name;
     @NotBlank
@@ -21,7 +23,7 @@ public class Product {
     @NotBlank
     private String image;
     @Positive
-    private double price;
+    private int price;
     @Positive
     private int vote;
     @Positive
@@ -42,12 +44,22 @@ public class Product {
 
     @ManyToOne(optional = false)
     @JoinColumn
-    public ProductLine getProductLine() {
-        return productLine;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setProductLine(ProductLine productLine) {
-        this.productLine = productLine;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 
     @Column(nullable = false, length = 50)
@@ -78,11 +90,11 @@ public class Product {
     }
 
     @Column(nullable = false)
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -139,7 +151,8 @@ public class Product {
                 vote == product.vote &&
                 Float.compare(product.rating, rating) == 0 &&
                 available == product.available &&
-                Objects.equals(productLine, product.productLine) &&
+                Objects.equals(category, product.category) &&
+                Objects.equals(producer, product.producer) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(image, product.image);
@@ -147,14 +160,14 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productLine, name, description, image, price, vote, rating, available);
+        return Objects.hash(id, category, producer, name, description, image, price, vote, rating, available);
     }
 
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", productLine=" + productLine +
+                ", productLine=" + category +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +

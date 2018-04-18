@@ -6,7 +6,7 @@ import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
-@Table(name = "orderItems")
+@Table(name = "order_items")
 public class OrderItem {
 
     private long id;

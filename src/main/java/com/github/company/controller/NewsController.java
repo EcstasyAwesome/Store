@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class NewsController {
 
-    private NewsDao newsDao;
-    private CategoryDao categoryDao;
-    private ProductDao productDao;
+    private final NewsDao newsDao;
+    private final CategoryDao categoryDao;
+    private final ProductDao productDao;
 
     @Autowired
     public NewsController(NewsDao newsDao, CategoryDao categoryDao, ProductDao productDao) {

@@ -20,8 +20,12 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class ProductCommentDaoImpl implements ProductCommentDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public ProductCommentDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void create(ProductComment newInstance) {

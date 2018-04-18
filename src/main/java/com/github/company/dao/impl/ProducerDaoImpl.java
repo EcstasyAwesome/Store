@@ -1,7 +1,7 @@
 package com.github.company.dao.impl;
 
-import com.github.company.dao.entity.ProductLine;
-import com.github.company.dao.model.ProductLineDao;
+import com.github.company.dao.entity.Producer;
+import com.github.company.dao.model.ProducerDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,40 +14,44 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ProductLineDaoImpl implements ProductLineDao {
+public class ProducerDaoImpl implements ProducerDao {
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    public ProducerDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Transactional(readOnly = true)
     @Override
-    public List<ProductLine> getAll() {
+    public List<Producer> getAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<ProductLine> query = builder.createQuery(ProductLine.class);
-        query.select(query.from(ProductLine.class));
+        CriteriaQuery<Producer> query = builder.createQuery(Producer.class);
+        query.select(query.from(Producer.class));
         return session.createQuery(query).getResultList();
     }
 
     @Override
-    public void create(ProductLine newInstance) {
+    public void create(Producer newInstance) {
         sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public ProductLine read(Long id) {
-        return sessionFactory.getCurrentSession().get(ProductLine.class, id);
+    public Producer read(Long id) {
+        return sessionFactory.getCurrentSession().get(Producer.class, id);
     }
 
     @Override
-    public void update(ProductLine instance) {
+    public void update(Producer instance) {
         sessionFactory.getCurrentSession().update(instance);
     }
 
     @Override
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(session.load(ProductLine.class, id));
+        session.delete(session.load(Producer.class, id));
     }
 }

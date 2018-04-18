@@ -17,8 +17,12 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class OrderItemDaoImpl implements OrderItemDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public OrderItemDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Transactional(readOnly = true)
     @Override

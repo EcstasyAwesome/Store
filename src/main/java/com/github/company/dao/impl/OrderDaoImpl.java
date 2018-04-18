@@ -20,8 +20,12 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class OrderDaoImpl implements OrderDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public OrderDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Transactional(readOnly = true)
     @Override

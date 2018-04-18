@@ -20,8 +20,12 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class NewsCommentDaoImpl implements NewsCommentDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public NewsCommentDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void create(NewsComment newInstance) {

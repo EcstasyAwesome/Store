@@ -16,8 +16,12 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class GroupDaoImpl implements GroupDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public GroupDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Transactional(readOnly = true)
     @Override

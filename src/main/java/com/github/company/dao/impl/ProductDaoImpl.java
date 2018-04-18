@@ -20,8 +20,12 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class ProductDaoImpl implements ProductDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public ProductDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -40,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
         Root<Product> root = query.from(Product.class);
-        query.select(root).where(builder.equal(root.get("productLine"), productLineId));
+        query.select(root).where(builder.equal(root.get("category"), productLineId));
         return session.createQuery(query).getResultList();
     }
 

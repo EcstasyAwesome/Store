@@ -28,8 +28,8 @@ public class NewsCommentDaoImpl implements NewsCommentDao {
     }
 
     @Override
-    public void create(NewsComment newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(NewsComment newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

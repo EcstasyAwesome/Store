@@ -36,8 +36,8 @@ public class OrderItemDaoImpl implements OrderItemDao {
     }
 
     @Override
-    public void create(OrderItem newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(OrderItem newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

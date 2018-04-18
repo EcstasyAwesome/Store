@@ -60,8 +60,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void create(User newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(User newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

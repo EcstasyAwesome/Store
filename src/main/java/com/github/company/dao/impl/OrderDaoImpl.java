@@ -49,8 +49,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void create(Order newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Order newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

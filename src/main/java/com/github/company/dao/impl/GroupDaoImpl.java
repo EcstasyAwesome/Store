@@ -34,8 +34,8 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public void create(Group newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Group newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

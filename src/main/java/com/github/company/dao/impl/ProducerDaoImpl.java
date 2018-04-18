@@ -34,8 +34,8 @@ public class ProducerDaoImpl implements ProducerDao {
     }
 
     @Override
-    public void create(Producer newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Producer newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

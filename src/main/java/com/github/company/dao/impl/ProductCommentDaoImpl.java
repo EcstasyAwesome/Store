@@ -28,8 +28,8 @@ public class ProductCommentDaoImpl implements ProductCommentDao {
     }
 
     @Override
-    public void create(ProductComment newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(ProductComment newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

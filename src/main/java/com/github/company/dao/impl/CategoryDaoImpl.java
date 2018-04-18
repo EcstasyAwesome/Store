@@ -34,8 +34,8 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public void create(Category newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Category newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

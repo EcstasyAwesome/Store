@@ -63,8 +63,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void create(Product newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Product newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

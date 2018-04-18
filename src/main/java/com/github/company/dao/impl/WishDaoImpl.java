@@ -36,8 +36,8 @@ public class WishDaoImpl implements WishDao {
     }
 
     @Override
-    public void create(Wish newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(Wish newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

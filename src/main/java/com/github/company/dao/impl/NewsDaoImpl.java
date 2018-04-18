@@ -38,8 +38,8 @@ public class NewsDaoImpl implements NewsDao {
     }
 
     @Override
-    public void create(News newInstance) {
-        sessionFactory.getCurrentSession().save(newInstance);
+    public Long create(News newInstance) {
+        return (Long) sessionFactory.getCurrentSession().save(newInstance);
     }
 
     @Transactional(readOnly = true)

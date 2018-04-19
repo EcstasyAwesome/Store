@@ -33,7 +33,7 @@ public class NewsController {
         model.addAttribute("categories", categoryDao.getAll());
         model.addAttribute("products", productDao.getMostRatedProducts());
         model.addAttribute("currentPage", page);
-        model.addAttribute("noOfPages", newsDao.amountOfPages(recordsOnPage, null));
+        model.addAttribute("numberOfPages", newsDao.amountOfPages(recordsOnPage, null));
         return "news_all";
     }
 

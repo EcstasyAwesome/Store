@@ -71,9 +71,7 @@ public class NewsController {
                              @PathVariable long id,
                              @Valid @ModelAttribute("comment") NewsComment newsComment,
                              BindingResult result) {
-        if (result.hasErrors()) {
-            return getNewsById(model, id, page);
-        }
+        if (result.hasErrors()) return getNewsById(model, id, page);
         else {
             newsComment.setNews(new News(id));
             newsComment.setUser(new User(1L)); // temporarily

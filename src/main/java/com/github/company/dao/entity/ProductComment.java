@@ -4,14 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
 @Table(name = "product_comments")
 public class ProductComment extends Comment {
 
-    @NotNull
     private Product product;
 
     @ManyToOne(optional = false)

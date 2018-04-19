@@ -141,6 +141,8 @@ body {
     vertical-align: middle;
     background-color: #eee;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .news-preview-body {
@@ -148,6 +150,43 @@ body {
     text-overflow: ellipsis;
     text-align: justify;
     max-width: 750px;
+}
+
+.news {
+    border: solid 1px #ddd;
+    width: 780px;
+    margin: auto;
+}
+
+.news-header {
+    border-bottom: solid 1px #ddd;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #eee;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.news-image {
+    text-align: center;
+}
+
+.news-body {
+    white-space: normal;
+    text-align: justify;
+    max-width: 750px;
+}
+
+.news-footer {
+    font-size: 14px;
+    font-weight: lighter;
+    border-bottom: solid 1px #ddd;
+    height: auto;
+    text-align: right;
+    vertical-align: middle;
+    background-color: #eee;
 }
 
 .product-rated-image {
@@ -163,6 +202,29 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 150px;
+}
+
+.comment {
+    border: solid 1px #ddd;
+    width: 780px;
+    margin: auto;
+}
+
+.comment-header{
+    border-bottom: solid 1px #ddd;
+    height: 20px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: #eee;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.comment-body {
+    white-space: normal;
+    text-align: justify;
+    padding-left: 15px;
+    max-width: 750px;
 }
 
 .footer {

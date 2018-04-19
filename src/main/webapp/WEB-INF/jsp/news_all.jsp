@@ -14,7 +14,7 @@
 <div class="container">
     <jsp:include page="/WEB-INF/jsp/static/left_side.jsp"/>
     <div class="content">
-        <jsp:include page="static/most_rated_products.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/static/most_rated_products.jsp"/>
         <c:if test="${!news.isEmpty()}">
             <c:forEach items="${news}" var="item">
                 <spring:url value="/news/{news_id}" var="url">

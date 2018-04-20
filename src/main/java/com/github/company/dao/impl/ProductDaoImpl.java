@@ -86,7 +86,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<Product> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
@@ -102,7 +102,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);

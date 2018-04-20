@@ -51,7 +51,7 @@ public class NewsCommentDaoImpl implements NewsCommentDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<NewsComment> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<NewsComment> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<NewsComment> query = builder.createQuery(NewsComment.class);
@@ -67,7 +67,7 @@ public class NewsCommentDaoImpl implements NewsCommentDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);

@@ -135,7 +135,7 @@ body {
 }
 
 .news-preview-header {
-    border-bottom: solid 1px #ddd;
+    border: solid 1px #ddd;
     height: 30px;
     text-align: left;
     vertical-align: middle;
@@ -159,7 +159,7 @@ body {
 }
 
 .news-header {
-    border-bottom: solid 1px #ddd;
+    border: solid 1px #ddd;
     height: 30px;
     text-align: center;
     vertical-align: middle;
@@ -210,10 +210,20 @@ body {
     margin: auto;
 }
 
-.comment-header{
-    border-bottom: solid 1px #ddd;
+.comment-header-left{
+    border: solid 1px #ddd;
     height: 20px;
     text-align: left;
+    vertical-align: middle;
+    background-color: #eee;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.comment-header-right{
+    border: solid 1px #ddd;
+    height: 20px;
+    text-align: right;
     vertical-align: middle;
     background-color: #eee;
     font-size: 14px;
@@ -281,8 +291,6 @@ body {
     font-size: 16px
 }
 
-.server-answer {
-    margin: 15px 0 0;
+.error-message {
     color: #EF3B3A;
-    font-size: 14px;
 }

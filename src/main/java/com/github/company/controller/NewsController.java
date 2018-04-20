@@ -50,6 +50,11 @@ public class NewsController {
         return "news_all";
     }
 
+    @GetMapping("/news")
+    public String getNewsDuplicate(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+        return getNews(model, page);
+    }
+
     @GetMapping("/news/{id}")
     public String getNewsById(Model model,
                               @PathVariable long id,
@@ -67,8 +72,8 @@ public class NewsController {
 
     @PostMapping("/news/{id}")
     public String addComment(Model model,
-                             @RequestParam(value = "page", defaultValue = "1") int page,
                              @PathVariable long id,
+                             @RequestParam(value = "page", defaultValue = "1") int page,
                              @Valid @ModelAttribute("comment") NewsComment newsComment,
                              BindingResult result) {
         if (result.hasErrors()) return getNewsById(model, id, page);
@@ -79,5 +84,12 @@ public class NewsController {
             model.addAttribute("comment", newComment());
             return getNewsById(model, id, page);
         }
+    }
+
+    @DeleteMapping(value = "/news/{id}")
+    public String deleteComment(@PathVariable long id,
+                                @RequestParam(value = "comment_id", defaultValue = "1") long comment) {
+        newsCommentDao.delete(comment);
+        return "redirect:/news/" + id;
     }
 }

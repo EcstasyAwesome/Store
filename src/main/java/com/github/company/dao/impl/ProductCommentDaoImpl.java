@@ -51,7 +51,7 @@ public class ProductCommentDaoImpl implements ProductCommentDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ProductComment> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<ProductComment> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<ProductComment> query = builder.createQuery(ProductComment.class);
@@ -67,7 +67,7 @@ public class ProductCommentDaoImpl implements ProductCommentDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);

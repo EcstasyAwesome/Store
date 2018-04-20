@@ -83,7 +83,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<User> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<User> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);

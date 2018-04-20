@@ -6,7 +6,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Новости</title>
     <link rel="stylesheet" href="<spring:url value="/resources/stylesheet/style.css"/>">
 </head>
 <body>

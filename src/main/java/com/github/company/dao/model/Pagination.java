@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface Pagination<T> {
-    List<T> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params);
+    List<T> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params);
 
-    int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params);
+    int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params);
 }

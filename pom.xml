@@ -18,7 +18,7 @@
         <jstl.version>1.2</jstl.version>
         <jdbc.version>6.0.6</jdbc.version>
         <log4j.version>1.2.17</log4j.version>
-        <spring.version>5.0.4.RELEASE</spring.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
         <dbcp.version>9.0.6</dbcp.version>
         <hibernate.version>5.2.16.Final</hibernate.version>
         <hibernate.validator.version>6.0.9.Final</hibernate.validator.version>

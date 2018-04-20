@@ -61,7 +61,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<News> getPage(int page, int recordsOnPage, @Nullable Map<String, String> params) {
+    public List<News> getPage(int page, int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<News> query = builder.createQuery(News.class);
@@ -77,7 +77,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Transactional(readOnly = true)
     @Override
-    public int amountOfPages(int recordsOnPage, @Nullable Map<String, String> params) {
+    public int amountOfPages(int recordsOnPage, @Nullable Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);

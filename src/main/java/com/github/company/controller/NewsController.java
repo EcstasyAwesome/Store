@@ -90,6 +90,6 @@ public class NewsController {
     public String deleteComment(@PathVariable long id,
                                 @RequestParam(value = "comment_id", defaultValue = "1") long comment) {
         newsCommentDao.delete(comment);
-        return "redirect:/news/" + id;
+        return String.format("redirect:/news/%d", id);
     }
 }

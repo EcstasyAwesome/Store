@@ -3,6 +3,7 @@ package com.github.company.dao.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +12,13 @@ public class Address {
 
     private long id;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String country;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String city;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String street;
     @Positive
     private int house;

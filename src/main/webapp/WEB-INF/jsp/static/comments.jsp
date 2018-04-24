@@ -37,10 +37,10 @@
             <tr>
                 <td><form:textarea path="text" cols="85" rows="5"/></td>
             </tr>
-            <spring:bind path="text">
+            <spring:bind path="*">
                 <c:if test="${status.error}">
                     <tr>
-                        <td class="error-message"><form:errors path="text"/></td>
+                        <td class="error-message">${status.errorCode}</td>
                     </tr>
                 </c:if>
             </spring:bind>

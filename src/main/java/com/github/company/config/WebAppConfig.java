@@ -2,6 +2,7 @@ package com.github.company.config;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,6 +14,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.Properties;
@@ -26,9 +28,16 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @EnableTransactionManagement
 public class WebAppConfig implements WebMvcConfigurer {
 
-    @Bean
+    public static final String RESOURCES_PREFIX = "/resources";
+    private Environment env;
+
     @Autowired
-    public LocalSessionFactoryBean sessionFactory(Environment env) {
+    public WebAppConfig(Environment env) {
+        this.env = env;
+    }
+
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(env.getProperty("datasource.url"));
@@ -54,15 +63,25 @@ public class WebAppConfig implements WebMvcConfigurer {
         return transactionManager;
     }
 
+    @NotNull
     @Override
     public Validator getValidator() {
         return new LocalValidatorFactoryBean();
     }
 
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setDefaultEncoding("UTF-8");
+        multipartResolver.setResolveLazily(true);
+        return multipartResolver;
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/")
+        String dir = env.getProperty("application.storage");
+        registry.addResourceHandler(RESOURCES_PREFIX + "/**")
+                .addResourceLocations("/resources/", "file:///" + (dir.endsWith("/") ? dir : dir + "/"))
                 .setCachePeriod(31556926);
     }
 

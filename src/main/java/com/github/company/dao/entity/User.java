@@ -4,10 +4,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -18,10 +15,13 @@ public class User {
 
     private long id;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String lastName;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String firstName;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String middleName;
     @Past
     @NotNull
@@ -31,14 +31,13 @@ public class User {
     private Address address;
     @Range(min = 12)
     private long phone;
-    @NotBlank
     private String image;
     @Email
     @NotBlank
     private String email;
     @NotBlank
+    @Size(min = 1, max = 20)
     private String password;
-    @NotNull
     private Group groups;
     private List<Wish> wishes;
     private List<Order> orders;
@@ -118,7 +117,7 @@ public class User {
         this.image = image;
     }
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -127,7 +126,7 @@ public class User {
         this.email = email;
     }
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 20)
     public String getPassword() {
         return password;
     }

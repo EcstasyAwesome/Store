@@ -1,9 +1,6 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,14 +10,10 @@ import java.util.Objects;
 public class Order {
 
     private long id;
-    @NotNull
     private User user;
-    @NotEmpty
     private List<OrderItem> orderItems;
-    @NotNull
     private Date date = new Date();
-    @Positive
-    private double sum;
+    private int sum;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,11 +56,11 @@ public class Order {
     }
 
     @Column(nullable = false)
-    public double getSum() {
+    public int getSum() {
         return sum;
     }
 
-    public void setSum(double sum) {
+    public void setSum(int sum) {
         this.sum = sum;
     }
 

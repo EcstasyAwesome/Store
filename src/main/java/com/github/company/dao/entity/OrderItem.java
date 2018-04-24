@@ -1,8 +1,6 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -10,14 +8,10 @@ import java.util.Objects;
 public class OrderItem {
 
     private long id;
-    @NotNull
     private Order order;
-    @NotNull
     private Product product;
-    @Positive
     private int amount;
-    @Positive
-    private double price;
+    private int price;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,11 +54,11 @@ public class OrderItem {
     }
 
     @Column(nullable = false)
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

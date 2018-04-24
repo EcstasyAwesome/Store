@@ -2,6 +2,7 @@ package com.github.company.dao.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,8 +12,8 @@ public class Category {
 
     private long id;
     @NotBlank
+    @Size(min = 1, max = 50)
     private String name;
-    @NotBlank
     private String image;
     private List<Product> products;
 

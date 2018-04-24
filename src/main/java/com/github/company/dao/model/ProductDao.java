@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProductDao extends CRUD<Long, Product>, Pagination<Product> {
     List<Product> getAll();
 
-    List<Product> getByProductLine(long productLineId);
+    List<Product> getByCategory(long productLineId);
 
     List<Product> getMostRatedProducts();
 }

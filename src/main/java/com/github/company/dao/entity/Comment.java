@@ -2,6 +2,7 @@ package com.github.company.dao.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Objects;
@@ -13,6 +14,7 @@ public abstract class Comment {
     @NotBlank
     @Size(min = 1, max = 300)
     private String text;
+    @NotNull
     private Date date = new Date();
     private User user;
 

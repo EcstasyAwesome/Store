@@ -39,7 +39,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Product> getByProductLine(long productLineId) {
+    public List<Product> getByCategory(long productLineId) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Product> query = builder.createQuery(Product.class);

@@ -1,7 +1,6 @@
 package com.github.company.dao.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -9,9 +8,7 @@ import java.util.Objects;
 public class Wish {
 
     private long id;
-    @NotNull
     private User user;
-    @NotNull
     private Product product;
 
     @Id
